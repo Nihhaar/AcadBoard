@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "526300980256",
+    "project_id": "acad-board"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:526300980256:android:157d6a76e27b7ae8",
+        "android_client_info": {
+          "package_name": "iitb.nihhaar.acadboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "526300980256-ak59aft27jgjoqbccsle871o4n5pk2b4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iitb.nihhaar.acadboard",
+            "certificate_hash": "AA06D9CA890098ED2488C7F4FACA44DE917A5F96"
+          }
+        },
+        {
+          "client_id": "526300980256-qn42u9t4rb84q1vkvib56nq445tcfc45.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk9VZIMRHoKUfGc3IkRcW7WcB5OV6WMxY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

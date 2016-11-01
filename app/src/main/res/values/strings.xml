@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Acad Board</string>
+    <string name="fa_user">&#xf007;</string>
+    <string name="signin">SIGN IN</string>
+    <string name="reg">REGISTER</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="username">Email</string>
+    <string name="username_summary">Your signed in Email</string>
+    <string name="password">Password</string>
+    <string name="password_summary">.........</string>
+    <string name="action_settings">Settings</string>
+    <string name="logout">Log out</string>
+</resources>

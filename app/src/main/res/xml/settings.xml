@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <iitb.nihhaar.acadboard.CustomPreference
+        android:key="username"
+        android:summary="@string/username_summary"
+        android:title="@string/username" />
+
+    <iitb.nihhaar.acadboard.CustomPreference
+        android:title="@string/logout"
+        android:key="logout" />
+</PreferenceScreen>
