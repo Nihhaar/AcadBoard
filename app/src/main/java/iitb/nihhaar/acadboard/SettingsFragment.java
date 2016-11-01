@@ -15,7 +15,7 @@ import static iitb.nihhaar.acadboard.MainActivity.*;
  * Created by Nihhaar on 10/31/2016.
  */
 
-public class SettingsFragment extends PreferenceFragment {
+class SettingsFragment extends PreferenceFragment {
 
     private SharedPreferences prefs;
     private SharedPreferences logins;
@@ -25,6 +25,8 @@ public class SettingsFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
         prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        Preference loginmail = (Preference)findPreference("username");
+        loginmail.setSummary(getActivity().getSharedPreferences(PREFS_FILE,MODE_PRIVATE).getString("email","Not Logged in"));
         Preference button = (Preference)findPreference("logout");
         button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
