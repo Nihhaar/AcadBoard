@@ -34,7 +34,7 @@ public class FirstFragment extends Fragment {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month,
                                             int dayOfMonth) {
-               Toast.makeText(getActivity(), ""+dayOfMonth, 0).show();// TODO Auto-generated method stub
+               Toast.makeText(getActivity(), ""+dayOfMonth, Toast.LENGTH_SHORT).show();// TODO Auto-generated method stub
 
             }
         });

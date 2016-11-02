@@ -4,22 +4,22 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
     android:paddingBottom="0dp"
     android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:orientation="vertical"
-    android:background="@color/bg"
-    android:gravity="center_horizontal"
-    tools:context="iitb.nihhaar.acadboard.MainActivity"
-    android:fitsSystemWindows="true">
+    tools:context="iitb.nihhaar.acadboard.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="133dp"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
 <!--    <TextView
         android:id="@+id/user"
@@ -29,120 +29,106 @@
         android:gravity="1"/>-->
         
     <EditText
+        android:id="@+id/username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/username"
-        android:hint="Email"
         android:background="@drawable/round_border"
-        android:paddingTop="15px"
-        android:paddingBottom="15px"
-        android:paddingRight="15px"
-        android:paddingLeft="30px"
-        android:minWidth="280dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
         android:minHeight="50dp"
-        android:textColorHint="@color/text"
-        android:textColor="#fff"/>
+        android:minWidth="280dp"
+        android:paddingBottom="15px"
+        android:paddingLeft="30px"
+        android:paddingRight="15px"
+        android:paddingTop="15px"
+        android:textColor="#fff"
+        android:textColorHint="@color/text"/>
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_below="@+id/username"
         android:layout_alignEnd="@+id/username"
+        android:layout_below="@+id/username"
         android:layout_marginTop="20dp"
-        android:id="@+id/password"
-        android:hint="Password"
         android:background="@drawable/round_border"
-        android:paddingTop="15px"
-        android:paddingBottom="15px"
-        android:paddingRight="15px"
-        android:paddingLeft="30px"
-        android:minWidth="280dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:minHeight="50dp"
-        android:textColorHint="@color/text"
-        android:textColor="#fff"/>
+        android:minWidth="280dp"
+        android:paddingBottom="15px"
+        android:paddingLeft="30px"
+        android:paddingRight="15px"
+        android:paddingTop="15px"
+        android:textColor="#fff"
+        android:textColorHint="@color/text"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
     <Button
-        android:text="@string/signin"
+        android:id="@+id/signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/signin"
         android:layout_marginTop="20dp"
         android:background="@drawable/round_button"
-        android:textColor="#fff"
-        android:paddingTop="15px"
-        android:paddingBottom="15px"
-        android:paddingRight="15px"
-        android:paddingLeft="15px"
+        android:minHeight="50dp"
         android:minWidth="280dp"
-        android:minHeight="50dp" />
+        android:paddingBottom="15px"
+        android:paddingLeft="15px"
+        android:paddingRight="15px"
+        android:paddingTop="15px"
+        android:text="@string/signin"
+        android:textColor="#fff" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/sign_in_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingTop="15px"
-            android:paddingBottom="15px"
-            android:paddingRight="15px"
-            android:paddingLeft="30px"
             android:gravity="center_horizontal"
-            android:textSize="15dp"
+            android:paddingBottom="15px"
+            android:paddingLeft="30px"
+            android:paddingRight="15px"
+            android:paddingTop="15px"
             android:text="Not a member?"
-            android:textColor="@color/text"/>
+            android:textColor="@color/text"
+            android:textSize="15dp"/>
 
         <TextView
             android:id="@+id/register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:paddingTop="15px"
-            android:paddingBottom="15px"
-            android:paddingRight="15px"
-            android:paddingLeft="0px"
             android:gravity="center_horizontal"
-            android:textSize="15dp"
+            android:paddingBottom="15px"
+            android:paddingLeft="0px"
+            android:paddingRight="15px"
+            android:paddingTop="15px"
             android:text="Register Now"
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:textSize="15dp"/>
 
     </LinearLayout>
 
