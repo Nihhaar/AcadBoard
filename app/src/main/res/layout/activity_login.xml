@@ -42,7 +42,7 @@
         android:paddingLeft="30px"
         android:paddingRight="15px"
         android:paddingTop="15px"
-        android:textColor="#fff"
+        android:textColor="@color/blue"
         android:textColorHint="@color/text"/>
 
     </LinearLayout>
@@ -70,7 +70,7 @@
         android:paddingLeft="30px"
         android:paddingRight="15px"
         android:paddingTop="15px"
-        android:textColor="#fff"
+        android:textColor="@color/blue"
         android:textColorHint="@color/text"/>
     </LinearLayout>
 

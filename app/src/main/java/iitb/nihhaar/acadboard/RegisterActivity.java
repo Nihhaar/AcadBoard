@@ -21,7 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#EA4C89'> IITB Acad Feed </font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'> IITB Acad Feed </font>"));
 
 
         tv_signin = (TextView) findViewById(R.id.signin);
@@ -29,7 +29,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent reg = new Intent(RegisterActivity.this,LoginActivity.class);
+                reg.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                reg.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(reg);
+                finish();
             }
         });
 

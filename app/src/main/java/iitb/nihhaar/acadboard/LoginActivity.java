@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         setContentView(R.layout.activity_login);
 
         //getSupportActionBar().hide();
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#EA4C89'> IITB Acad Feed </font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'> IITB Acad Feed </font>"));
 
         tv_register = (TextView) findViewById(R.id.register);
         tv_register.setOnClickListener(this);
@@ -82,17 +82,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 NetworkInfo networkInfo = cmgr.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
                     queue = Volley.newRequestQueue(this);
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, getResources().getString(R.id.url), new Response.Listener<String>() {
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, getResources().getString(R.string.url), new Response.Listener<String>() {
                         @Override
                         public void onResponse(String s) {
-                            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
-                            SharedPreferences.Editor addlogin = logins.edit();
-                            addlogin.putString("email",inputEmail.getText().toString());
-                            addlogin.putString("password",inputPassword.getText().toString());
-                            addlogin.putBoolean("Signedin",true);
-                            addlogin.commit();
-                            Intent test = new Intent(LoginActivity.this,CalendarActivity.class);
-                            startActivity(test);
+                            if(s.equals("success")) {
+                                SharedPreferences.Editor addlogin = logins.edit();
+                                addlogin.putString("email",inputEmail.getText().toString());
+                                addlogin.putString("password",inputPassword.getText().toString());
+                                addlogin.putBoolean("Signedin",true);
+                                addlogin.commit();
+                                Intent test = new Intent(LoginActivity.this, CalendarActivity.class);
+                                startActivity(test);
+                                Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                            else{
+                              Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                            }
                         }
                     }, new Response.ErrorListener() {
                         @Override

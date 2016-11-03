@@ -27,7 +27,7 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#EA4C89'>Calendar Events</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>Calendar Events</font>"));
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         try {
@@ -91,14 +91,6 @@ public class CalendarActivity extends AppCompatActivity {
         mDrawerToggle.syncState();
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener{
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
-        }
-    }
-
     private void selectItem(int position){
         Fragment fragment = null;
         Class fragmentClass = FirstFragment.class;
@@ -136,12 +128,20 @@ public class CalendarActivity extends AppCompatActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#EA4C89'>" + mTitle + "</font>"));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color='#FFFFFF'>" + mTitle + "</font>"));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.main,menu);
         return true;
+    }
+
+    private class DrawerItemClickListener implements ListView.OnItemClickListener{
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            selectItem(position);
+        }
     }
 }
