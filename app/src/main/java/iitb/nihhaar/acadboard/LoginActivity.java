@@ -16,6 +16,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -31,17 +38,20 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 
 import static iitb.nihhaar.acadboard.MainActivity.*;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener,GoogleApiClient.OnConnectionFailedListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
 
-    private static final String DEBUG_TAG = "HttpExample";
+    private static final String TAG = "LoginCheck";
     Button button_sign;
     private TextView tv_register;
     private EditText inputEmail;
     private EditText inputPassword;
     private SharedPreferences logins;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,15 +81,42 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 ConnectivityManager cmgr = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = cmgr.getActiveNetworkInfo();
                 if (networkInfo != null && networkInfo.isConnected()) {
-                    GetRequest details = new GetRequest();
-                    details.execute(getResources().getString(R.string.url));
-                    SharedPreferences.Editor addlogin = logins.edit();
-                    addlogin.putString("email",inputEmail.getText().toString());
-                    addlogin.putString("password",inputPassword.getText().toString());
-                    addlogin.putBoolean("Signedin",true);
-                    addlogin.commit();
-                    //Intent test = new Intent(LoginActivity.this,CalendarActivity.class);
-                    //startActivity(test);
+                    queue = Volley.newRequestQueue(this);
+                    StringRequest stringRequest = new StringRequest(Request.Method.POST, getResources().getString(R.id.url), new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String s) {
+                            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
+                            SharedPreferences.Editor addlogin = logins.edit();
+                            addlogin.putString("email",inputEmail.getText().toString());
+                            addlogin.putString("password",inputPassword.getText().toString());
+                            addlogin.putBoolean("Signedin",true);
+                            addlogin.commit();
+                            Intent test = new Intent(LoginActivity.this,CalendarActivity.class);
+                            startActivity(test);
+                        }
+                    }, new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            Toast.makeText(getApplicationContext(),"Unable to Connect to Server",Toast.LENGTH_SHORT).show();
+                        }
+                    }){
+                        @Override
+                        protected Map<String,String> getParams(){
+                            Map<String,String> params = new HashMap<String, String>();
+                            params.put("student",inputEmail.getText().toString());
+                            params.put("password",inputPassword.getText().toString());
+                            return params;
+                        }
+
+                        @Override
+                        public Map<String, String> getHeaders() throws AuthFailureError {
+                            Map<String,String> params = new HashMap<String, String>();
+                            params.put("Content-Type","application/x-www-form-urlencoded");
+                            return params;
+                        }
+                    };
+                    stringRequest.setTag(TAG);
+                    queue.add(stringRequest);
                 } else {
                     Toast.makeText(this,"No network connection available.",Toast.LENGTH_SHORT).show();
                 }
@@ -107,66 +144,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private String connectUrl(String myurl) throws IOException {
-        InputStream is = null;
-        // Only display the first 500 characters of the retrieved
-        // web page content.
-        int len = 500;
-
-        try {
-            URL url = new URL(myurl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setReadTimeout(10000 /* milliseconds */);
-            conn.setConnectTimeout(15000 /* milliseconds */);
-            conn.setRequestMethod("GET");
-            conn.setDoInput(true);
-            // Starts the query
-            conn.connect();
-            int response = conn.getResponseCode();
-            Log.d(DEBUG_TAG, "The response is: " + response);
-            is = conn.getInputStream();
-
-            // Convert the InputStream into a string
-            String contentAsString = readIt(is, len);
-            return contentAsString;
-
-            // Makes sure that the InputStream is closed after the app is
-            // finished using it.
-        } finally {
-            if (is != null) {
-                is.close();
-            }
-        }
-    }
-
-    public String readIt(InputStream stream, int len) throws IOException, UnsupportedEncodingException {
-        Reader reader = null;
-        reader = new InputStreamReader(stream, "UTF-8");
-        char[] buffer = new char[len];
-        reader.read(buffer);
-        return new String(buffer);
-    }
-
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-
-    }
-
-    private class GetRequest extends AsyncTask<String, Void, String> {
-        @Override
-        protected String doInBackground(String... urls) {
-
-            // params comes from the execute() call: params[0] is the url.
-            try {
-                return connectUrl(urls[0]);
-            } catch (IOException e) {
-                return "Unable to retrieve web page. URL may be invalid.";
-            }
-        }
-        // onPostExecute displays the results of the AsyncTask.
-        @Override
-        protected void onPostExecute(String result) {
-            Toast.makeText(getApplicationContext(),result,Toast.LENGTH_SHORT).show();
+    protected void onStop () {
+        super.onStop();
+        if (queue != null) {
+            queue.cancelAll(TAG);
         }
     }
+
 }

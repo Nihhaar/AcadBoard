@@ -127,7 +127,7 @@
             android:paddingRight="15px"
             android:paddingTop="15px"
             android:text="Register Now"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="15dp"/>
 
     </LinearLayout>
