@@ -37,7 +37,7 @@ class SettingsFragment extends PreferenceFragment {
                 logins = getActivity().getSharedPreferences(PREFS_FILE,MODE_PRIVATE);
                 SharedPreferences.Editor remLogin = logins.edit();
                 remLogin.clear();
-                remLogin.commit();
+                remLogin.apply();
                 startActivity(login);
                 getActivity().finish();
                 return true;

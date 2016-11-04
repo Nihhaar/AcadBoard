@@ -1,6 +1,7 @@
 package iitb.nihhaar.acadboard;
 
 import android.content.Context;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.roomorama.caldroid.CaldroidFragment;
 
 
 public class FirstFragment extends Fragment {
@@ -28,16 +31,16 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
         // Inflate the layout for this fragment
-        CalendarView calendarView=(CalendarView)view.findViewById(R.id.calendar);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+        CaldroidFragment caldroidFragment = new CaldroidFragment();
+        Bundle args = new Bundle();
+        Calendar cal = Calendar.getInstance();
+        args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
+        args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
+        caldroidFragment.setArguments(args);
 
-            @Override
-            public void onSelectedDayChange(CalendarView view, int year, int month,
-                                            int dayOfMonth) {
-               Toast.makeText(getActivity(), ""+dayOfMonth, Toast.LENGTH_SHORT).show();// TODO Auto-generated method stub
-
-            }
-        });
+        android.support.v4.app.FragmentTransaction t = getActivity().getSupportFragmentManager().beginTransaction();
+        t.replace(R.id.calendar, caldroidFragment);
+        t.commit();
 
         listView = (ListView) view.findViewById(R.id.card_listView);
         listView.addHeaderView(new View(getActivity()));
