@@ -126,8 +126,8 @@ public class FirstFragment extends Fragment {
                     for (int i = 0; i < 3; i++) {
                          Card card = new Card("COURSE", "TYPE");
                          cardArrayAdapter.add(card);
-                         listView.setAdapter(cardArrayAdapter);
                     }
+                listView.setAdapter(cardArrayAdapter);
                 //}
                 caldroidFragment.refreshView();
             }
