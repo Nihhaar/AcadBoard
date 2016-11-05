@@ -23,21 +23,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.SignInButton;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                 addlogin.putString("email",inputEmail.getText().toString());
                                 addlogin.putString("password",inputPassword.getText().toString());
                                 addlogin.putBoolean("Signedin",true);
-                                addlogin.commit();
+                                addlogin.apply();
                                 Intent test = new Intent(LoginActivity.this, CalendarActivity.class);
                                 startActivity(test);
                                 Toast.makeText(getApplicationContext(),s,Toast.LENGTH_SHORT).show();
