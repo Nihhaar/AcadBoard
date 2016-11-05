@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -115,25 +116,26 @@ public class FirstFragment extends Fragment {
                 DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
                 String formatdate = df.format(date);
                 Log.d(TAG,formatdate);
-                for(String key: hm.keySet()){
-                    Log.d("ASSHOLE",key);
-                }
                 cardArrayAdapter = new CardArrayAdapter(getActivity().getApplicationContext(), R.layout.list_item_card);
-                //if(!hm.isEmpty() && hm.containsKey(formatdate)) {
-                   // ArrayList<Events> eventsets = hm.get(formatdate);
-                  //  Log.d("CARD",eventsets.get(0).getName());
+                if(!hm.isEmpty() && hm.containsKey(formatdate)) {
+                 ArrayList<Events> eventsets = hm.get(formatdate);
+                 Log.d("CARD",eventsets.get(0).getName());
 
-                    for (int i = 0; i < 3; i++) {
-                         Card card = new Card("COURSE", "TYPE");
+                    for (int i = 0; i < eventsets.size(); i++) {
+                         Card card = new Card(eventsets.get(i).getName(), eventsets.get(i).getType(),eventsets.get(i).getDescription());
                          cardArrayAdapter.add(card);
                     }
                 listView.setAdapter(cardArrayAdapter);
-                //}
+                }
+                else{
+                    listView.setAdapter(null);
+                    cardArrayAdapter.clear();
+                }
                 caldroidFragment.refreshView();
             }
 
             @Override
-            public void onChangeMonth(int month, int year) {
+            public void onChangeMonth (int month, int year) {
                 String text = "month: " + month + " year: " + year;
             }
 
@@ -169,8 +171,33 @@ public class FirstFragment extends Fragment {
             Card card = new Card("Card " + (i+1) + " Line 1", "Card " + (i+1) + " Line 2");
             cardArrayAdapter.add(card);
         }*/
-        listView.setAdapter(cardArrayAdapter);
+      //  listView.setAdapter(cardArrayAdapter);
         caldroidFragment.refreshView();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Card cr = (Card)parent.getItemAtPosition(position);
+                Log.d("YO",cr.getLine2());
+                if(cr.getLine2().equals("Assignment")) {
+                    Intent more = new Intent(getActivity(), More.class);
+                    more.putExtra("name", cr.getLine1());
+                    more.putExtra("type", cr.getLine2());
+                    more.putExtra("description", cr.getDescription());
+                    Log.d("CameHere","Thanks");
+                    startActivity(more);
+                }
+                else{
+                    Intent more1 = new Intent(getActivity(), More1.class);
+                    more1.putExtra("name", cr.getLine1());
+                    more1.putExtra("type", cr.getLine2());
+                    more1.putExtra("description", cr.getDescription());
+                    startActivity(more1);
+                }
+
+            }
+        });
 
         return view;
     }
@@ -207,6 +234,7 @@ public class FirstFragment extends Fragment {
             strLine = sbuffer.toString();
             JSONObject json = new JSONObject(strLine);
             JSONArray jsonarr = json.optJSONArray("json_data");
+            hm.clear();
             for(int i=0;i<jsonarr.length();i++) {
                 JSONArray temp = jsonarr.getJSONObject(i).optJSONArray("course_data");
                 //String res = jsonarr1.getJSONObject(0).getString("course_name");
@@ -221,6 +249,7 @@ public class FirstFragment extends Fragment {
                         el1 = new ArrayList<Events>();
                         el1.add(e1);
                         hm.put(date,el1);
+                        Log.d("WHY?",hm.keySet().toString());
                     }
                     else{
                         el1.add(e1);

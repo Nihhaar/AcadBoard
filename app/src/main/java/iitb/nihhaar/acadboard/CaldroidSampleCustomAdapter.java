@@ -102,13 +102,6 @@ public class CaldroidSampleCustomAdapter extends CaldroidGridAdapter {
         }
 
         tv1.setText("" + dateTime.getDay());
-        if(!hm.isEmpty()) {
-            Iterator it = hm.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry) it.next();
-                it.remove(); // avoids a ConcurrentModificationException
-            }
-        }
 
         // Somehow after setBackgroundResource, the padding collapse.
         // This is to recover the padding
